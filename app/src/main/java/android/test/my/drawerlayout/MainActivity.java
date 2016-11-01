@@ -5,17 +5,14 @@ import android.content.res.Configuration;
 import android.os.PersistableBundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
     public static String STRINGS_ARRAY = "STRINGS_ARRAY";
@@ -23,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
     private FragmentManager fragmentManager;
     private ListView listViewMenu;
     private DrawerLayout drawerLayout;
-    private ActionBarDrawerToggle drawerListener;
+    private ActionBarDrawerToggle actionBarDrawerToggle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,54 +38,39 @@ public class MainActivity extends AppCompatActivity {
         listViewMenu.setOnItemClickListener(new MyMenuClickListener());
 
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-//        drawerLayout.setDrawerShadow(R.drawable.ic_drawer, GravityCompat.START); //Тень можно сделать
-
-
-//        Toolbar toolbar = new Toolbar(this);
-//        setSupportActionBar(toolbar);
-
-//        toolbar.setNavigationIcon(R.drawable.ic_drawer);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
-        getSupportActionBar().setIcon(R.drawable.ic_drawer);
 
-        drawerListener = new ActionBarDrawerToggle(this, drawerLayout, R.string.drawer_open, R.string.drawer_close){
-
+        actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.drawer_open, R.string.drawer_close){
             @Override
             public void onDrawerClosed(View drawerView) {
                 super.onDrawerClosed(drawerView);
-//                Toast.makeText(MainActivity.this,"Close",Toast.LENGTH_SHORT).show();
-                supportInvalidateOptionsMenu();
             }
             @Override
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
-//                Toast.makeText(MainActivity.this,"Open",Toast.LENGTH_SHORT).show();
-                supportInvalidateOptionsMenu();
             }
-
         };
-
-        drawerLayout.addDrawerListener(drawerListener);
+        drawerLayout.addDrawerListener(actionBarDrawerToggle);
 
     }
 
     @Override
-    public void onPostCreate(Bundle savedInstanceState, PersistableBundle persistentState) {
-        super.onPostCreate(savedInstanceState, persistentState);
-        drawerListener.syncState();
+    public void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        actionBarDrawerToggle.syncState();
     }
 
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-        drawerListener.onConfigurationChanged(newConfig);
+        actionBarDrawerToggle.onConfigurationChanged(newConfig);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (drawerListener.onOptionsItemSelected(item)) {
+        if (actionBarDrawerToggle.onOptionsItemSelected(item)) {
             return true;
         }
 
