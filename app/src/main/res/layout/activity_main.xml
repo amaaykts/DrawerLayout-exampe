@@ -14,13 +14,6 @@
             android:id="@+id/frame_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-
-            <ListView
-                android:id="@+id/list_view_content"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-            </ListView>
         </FrameLayout>
 
         <!--ListView for left menu-->

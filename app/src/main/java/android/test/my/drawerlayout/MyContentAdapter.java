@@ -14,11 +14,13 @@ import android.widget.TextView;
 public class MyContentAdapter extends BaseAdapter {
     private Context context;
     private LayoutInflater inflater;
-    private String[] strings = {"First content", "Second content", "Third content"};
+    private String[] strings;
+//    private String[] strings = {"First content", "Second content", "Third content"};
 
-    public MyContentAdapter(Context context) {
+    public MyContentAdapter(Context context, String[] strings) {
         this.context = context;
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        this.strings = strings;
     }
 
     @Override
